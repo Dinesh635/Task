@@ -12,7 +12,8 @@ import java.util.Optional;
 @Component
 public class EmployeeService {
 
-    
+
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
@@ -22,8 +23,14 @@ public class EmployeeService {
 
     public List<Employee> getAllEmployee()
     {
-       List<Employee> allEmployeeDetails=(List)employeeRepository.findAll();
+       List<Employee> allEmployeeDetails=(List<Employee>)employeeRepository.findAll();
         return allEmployeeDetails;
+    }
+
+    public Employee addEmployee(Employee employee)
+    {
+        Employee emp=this.employeeRepository.save(employee);
+        return emp;
     }
 
     public Optional<Employee> getEmployeeById(int emp_id)
@@ -33,11 +40,6 @@ public class EmployeeService {
         return emp;
     }
 
-    public Employee addEmployee(Employee employee)
-    {
-        Employee emp=this.employeeRepository.save(employee);
-        return emp;
-    }
     public void removeEmployee(int emp_id)
     {
 
