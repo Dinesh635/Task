@@ -1,55 +1,21 @@
 package com.Emp.management.Services;
 
 import com.Emp.management.Entity.Employee;
-import com.Emp.management.Repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.Emp.management.Exceptions.EmployeeNotFoundException;
+import com.Emp.management.Exceptions.WrongEmployeeDetailException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-@Component
-public class EmployeeService {
+public interface EmployeeService {
 
+    public Employee getEmployeeById(int id) throws EmployeeNotFoundException;
 
+    public List<Employee> getAllEmployee() throws EmployeeNotFoundException;
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    public void removeEmployee(int id) throws EmployeeNotFoundException;
 
-    public EmployeeService() {
-    }
+    public Employee updateEmployee(Employee employee,int id) throws EmployeeNotFoundException;
 
-
-    public List<Employee> getAllEmployee()
-    {
-       List<Employee> allEmployeeDetails=(List<Employee>)employeeRepository.findAll();
-        return allEmployeeDetails;
-    }
-
-    public Employee addEmployee(Employee employee)
-    {
-        Employee emp=this.employeeRepository.save(employee);
-        return emp;
-    }
-
-    public Optional<Employee> getEmployeeById(int emp_id)
-    {
-        Optional<Employee> emp=this.employeeRepository.findById(emp_id);
-
-        return emp;
-    }
-
-    public void removeEmployee(int emp_id)
-    {
-
-        this.employeeRepository.deleteById(emp_id);
-    }
-
-    public void updateEmployee(Employee employee,int emp_id)
-    {
-        employee.setEmp_id(emp_id);
-        this.employeeRepository.save(employee);
-    }
+    public void addEmployee(Employee employee) throws WrongEmployeeDetailException;
 
 }
