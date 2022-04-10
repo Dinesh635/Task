@@ -16,7 +16,6 @@ public class Employee {
      private String name;
 
     @Enumerated(value = EnumType.STRING)
-    @NotNull(message = "Please Enter designation")
     private EmployeeDesignations Designation;
 
     @NotEmpty(message = "Please enter your mobile number")
