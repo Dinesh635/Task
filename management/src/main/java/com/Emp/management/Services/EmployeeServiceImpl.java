@@ -69,4 +69,16 @@ public class EmployeeServiceImpl implements EmployeeService{
     public void addEmployee(Employee employee) throws WrongEmployeeDetailException {
         employeeDao.save(employee);
     }
+
+    @Override
+    public List<Employee> getEmployeeByName(String name) throws EmployeeNotFoundException {
+        List<Employee> employeeList=employeeDao.findByName(name);
+
+        if(employeeList.size()>0)
+            return employeeList;
+        else{
+            throw new EmployeeNotFoundException("Employee name : "+name+" not found");
+        }
+    }
+
 }

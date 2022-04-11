@@ -77,4 +77,15 @@ public class EmployeeController
         EmployeeDto employeeDto=modelMapper.map(emp,EmployeeDto.class);
         return employeeDto;
     }
+    @GetMapping("/getByName")
+    public List<EmployeeDto> getEmployeeByName(@RequestParam("name") String name) throws EmployeeNotFoundException {
+        List<Employee> employeeList=serviceManager.employeeService.getEmployeeByName(name);
+        List<EmployeeDto> employeeDtoList=new ArrayList<>();
+        for(Employee employee:employeeList)
+        {
+            EmployeeDto employeeDto=modelMapper.map(employee,EmployeeDto.class);
+            employeeDtoList.add(employeeDto);
+        }
+        return employeeDtoList;
+    }
 }

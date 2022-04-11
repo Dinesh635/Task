@@ -15,6 +15,7 @@ public class Employee {
     @Pattern(regexp = "^[a-zA-Z]+(\\s[a-zA-Z]+)?$",message = "Your name  must contain alphabets only")
      private String name;
 
+    @NotNull(message = "Please enter designation")
     @Enumerated(value = EnumType.STRING)
     private EmployeeDesignations Designation;
 
