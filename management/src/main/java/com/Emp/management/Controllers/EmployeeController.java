@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.Emp.management.Entity.Employee;
 import com.Emp.management.Exceptions.EmployeeNotFoundException;
-import com.Emp.management.Exceptions.WrongEmployeeDetailException;
+import com.Emp.management.Exceptions.EmployeeWrongDetailException;
 import com.Emp.management.Services.ServiceManager;
 import com.Emp.management.dto.ApiDto;
 import com.Emp.management.dto.EmployeeDto;
@@ -43,7 +43,7 @@ public class EmployeeController
     }
 
     @PostMapping("/addEmployee")
-    public EmployeeDto addEmployee(@RequestBody  @Valid Employee employee) throws WrongEmployeeDetailException {
+    public EmployeeDto addEmployee(@RequestBody  @Valid Employee employee) throws EmployeeWrongDetailException {
 
            serviceManager.employeeService.addEmployee(employee);
            EmployeeDto employeeDto=modelMapper.map(employee,EmployeeDto.class);

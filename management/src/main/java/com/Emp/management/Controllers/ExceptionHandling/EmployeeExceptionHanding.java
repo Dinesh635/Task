@@ -2,7 +2,7 @@ package com.Emp.management.Controllers.ExceptionHandling;
 
 import com.Emp.management.Exceptions.EmployeeErrorDetails;
 import com.Emp.management.Exceptions.EmployeeNotFoundException;
-import com.Emp.management.Exceptions.WrongEmployeeDetailException;
+import com.Emp.management.Exceptions.EmployeeWrongDetailException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,8 +35,8 @@ public class EmployeeExceptionHanding {
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(WrongEmployeeDetailException.class)
-    public EmployeeErrorDetails handleWrongEmployeeDetailException(WrongEmployeeDetailException exception)
+    @ExceptionHandler(EmployeeWrongDetailException.class)
+    public EmployeeErrorDetails handleWrongEmployeeDetailException(EmployeeWrongDetailException exception)
     {
         EmployeeErrorDetails error=new EmployeeErrorDetails();
         error.setMessage(exception.getMessage());

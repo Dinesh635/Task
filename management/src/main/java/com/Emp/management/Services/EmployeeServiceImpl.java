@@ -2,7 +2,7 @@ package com.Emp.management.Services;
 
 import com.Emp.management.Entity.Employee;
 import com.Emp.management.Exceptions.EmployeeNotFoundException;
-import com.Emp.management.Exceptions.WrongEmployeeDetailException;
+import com.Emp.management.Exceptions.EmployeeWrongDetailException;
 import com.Emp.management.dao.EmployeeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,7 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public void addEmployee(Employee employee) throws WrongEmployeeDetailException {
+    public void addEmployee(Employee employee) throws EmployeeWrongDetailException {
         employeeDao.save(employee);
     }
 

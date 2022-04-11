@@ -2,7 +2,7 @@ package com.Emp.management.Services;
 
 import com.Emp.management.Entity.Employee;
 import com.Emp.management.Exceptions.EmployeeNotFoundException;
-import com.Emp.management.Exceptions.WrongEmployeeDetailException;
+import com.Emp.management.Exceptions.EmployeeWrongDetailException;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface EmployeeService {
 
      Employee updateEmployee(Employee employee,int id) throws EmployeeNotFoundException;
 
-     void addEmployee(Employee employee) throws WrongEmployeeDetailException;
+     void addEmployee(Employee employee) throws EmployeeWrongDetailException;
 
      List<Employee> getEmployeeByName(String name) throws EmployeeNotFoundException;
 

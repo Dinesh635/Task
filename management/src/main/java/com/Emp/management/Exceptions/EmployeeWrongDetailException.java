@@ -1,9 +1,9 @@
 package com.Emp.management.Exceptions;
 
-public class WrongEmployeeDetailException extends Exception {
+public class EmployeeWrongDetailException extends Exception {
 
 
-    public WrongEmployeeDetailException(String message) {
+    public EmployeeWrongDetailException(String message) {
         super(message);
     }
 
