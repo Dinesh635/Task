@@ -16,8 +16,8 @@ public class Employee {
      private String name;
 
     @NotNull(message = "Please enter designation")
-    @Enumerated(value = EnumType.STRING)
-    private EmployeeDesignations Designation;
+   // @Enumerated(value = EnumType.STRING)
+    private  String Designation;
 
     @NotEmpty(message = "Please enter your mobile number")
     @Pattern(regexp = "^\\d{10}$",message = "Please enter valid mobile number")
@@ -52,13 +52,6 @@ public class Employee {
         this.name = name;
     }
 
-    public EmployeeDesignations getDesignation() {
-        return Designation;
-    }
-
-    public void setDesignation(String designation) {
-        Designation = EmployeeDesignations.valueOf(designation);
-    }
 
     public String getMob_no() {
         return mob_no;
@@ -82,5 +75,13 @@ public class Employee {
 
     public void setSalary(int salary) {
         this.salary = salary;
+    }
+
+    public String getDesignation() {
+        return Designation;
+    }
+
+    public void setDesignation(String designation) {
+        Designation = designation;
     }
 }

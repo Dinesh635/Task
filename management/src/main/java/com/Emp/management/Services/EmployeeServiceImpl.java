@@ -1,6 +1,7 @@
 package com.Emp.management.Services;
 
 import com.Emp.management.Entity.Employee;
+import com.Emp.management.Entity.EmployeeDesignations;
 import com.Emp.management.Exceptions.EmployeeNotFoundException;
 import com.Emp.management.Exceptions.EmployeeWrongDetailException;
 import com.Emp.management.dao.EmployeeDao;
@@ -24,7 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         if(employee.isPresent())
             return employee.get();
      else
-         throw new EmployeeNotFoundException("Employee with id "+id+"does not exist");
+         throw new EmployeeNotFoundException("Employee with id "+id+" does not exist");
     }
 
     @Override
@@ -46,27 +47,59 @@ public class EmployeeServiceImpl implements EmployeeService{
         if(employeeOptional.isPresent())
               employeeDao.deleteById(id);
         else
-            throw new EmployeeNotFoundException("We do not employee with id : "+id);
+            throw new EmployeeNotFoundException("We do not have employee with id : "+id);
     }
 
     @Override
-    public Employee updateEmployee(Employee employee, int id) throws EmployeeNotFoundException {
+    public Employee updateEmployee(Employee employee, int id) throws EmployeeNotFoundException, EmployeeWrongDetailException {
+
+       String employeeDesignation= employee.getDesignation();
+       boolean isDesignationPresent=false;
+
+       for(EmployeeDesignations designation:EmployeeDesignations.values())
+       {
+           if(employeeDesignation.equalsIgnoreCase(designation.toString()))
+           {
+               isDesignationPresent=true;
+               break;
+           }
+       }
+        if(isDesignationPresent==false)
+        {
+            throw new EmployeeWrongDetailException(employeeDesignation + " is invalid designation");
+        }
 
         Optional<Employee> employeeOptional=employeeDao.findById(id);
         if(employeeOptional.isPresent())
         {
-            Employee emp=employeeOptional.get();
             employee.setEmployeeId(id);
-            Employee savedEmployee=employeeDao.save(employee);
-            return savedEmployee;
+            employeeDao.save(employee);
+            return employee;
         }
-       else {
-            throw new EmployeeNotFoundException("Employee with id : " + id + "not found.");
+        else
+        {
+            throw new EmployeeNotFoundException("Employee  with id : "+id+" not found");
         }
     }
 
     @Override
     public void addEmployee(Employee employee) throws EmployeeWrongDetailException {
+
+        String employeeDesignation= employee.getDesignation();
+        boolean isDesignationPresent=false;
+
+        for(EmployeeDesignations designation:EmployeeDesignations.values())
+        {
+            if(employeeDesignation.equalsIgnoreCase(designation.toString()))
+            {
+                isDesignationPresent=true;
+                break;
+            }
+        }
+        if(isDesignationPresent==false)
+        {
+            throw new EmployeeWrongDetailException(employeeDesignation+ " is invalid designation");
+        }
         employeeDao.save(employee);
     }
 

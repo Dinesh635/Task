@@ -1,8 +1,5 @@
 package com.Emp.management.Controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.Emp.management.Entity.Employee;
 import com.Emp.management.Exceptions.EmployeeNotFoundException;
 import com.Emp.management.Exceptions.EmployeeWrongDetailException;
@@ -14,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class EmployeeController
@@ -29,17 +27,9 @@ public class EmployeeController
     @GetMapping("/getAllEmployee")
     public List<EmployeeDto> getEmployee()throws EmployeeNotFoundException
     {
-        List<Employee> employeeList=serviceManager.employeeService.getAllEmployee();
+        List<EmployeeDto> employeeDtoList=serviceManager.getEmployee();
 
-        List<EmployeeDto> DtoList=new ArrayList<>();
-
-        for(Employee employee:employeeList)
-        {
-            EmployeeDto employeeDto= modelMapper.map(employee,EmployeeDto.class);
-            DtoList.add(employeeDto);
-        }
-
-        return DtoList;
+        return employeeDtoList;
     }
 
     @PostMapping("/addEmployee")
@@ -54,10 +44,7 @@ public class EmployeeController
     @GetMapping("/getEmployee")
     public EmployeeDto getEmployeeById( @RequestParam("id") int emp_id) throws EmployeeNotFoundException {
 
-         Employee employee=serviceManager.employeeService.getEmployeeById(emp_id);
-
-          EmployeeDto responseDto=modelMapper.map(employee,EmployeeDto.class);
-
+         EmployeeDto responseDto=serviceManager.getEmployeeById(emp_id);
        return responseDto;
     }
 
@@ -65,27 +52,20 @@ public class EmployeeController
     @DeleteMapping("/removeEmployee")
     public ApiDto removeEmployee(@RequestParam("id") int emp_id) throws EmployeeNotFoundException {
 
-        serviceManager.employeeService.removeEmployee(emp_id);
-        ApiDto apiDto=new ApiDto("Employee with ID= "+emp_id+" removed Successfully");
-
+        ApiDto apiDto=serviceManager.removeEmployee(emp_id);
           return apiDto;
     }
-   @PutMapping("/updateEmployee")
-    public EmployeeDto updateEmployee(@RequestParam("id") int emp_id,@RequestBody @Valid Employee employee) throws EmployeeNotFoundException {
 
-        Employee emp=serviceManager.employeeService.updateEmployee(employee, emp_id);
-        EmployeeDto employeeDto=modelMapper.map(emp,EmployeeDto.class);
+   @PutMapping("/updateEmployee")
+    public EmployeeDto updateEmployee(@RequestParam("id") int emp_id,@RequestBody @Valid Employee employee) throws EmployeeNotFoundException, EmployeeWrongDetailException {
+
+        EmployeeDto employeeDto=serviceManager.updateEmployee(employee, emp_id);
         return employeeDto;
     }
+
     @GetMapping("/getByName")
     public List<EmployeeDto> getEmployeeByName(@RequestParam("name") String name) throws EmployeeNotFoundException {
-        List<Employee> employeeList=serviceManager.employeeService.getEmployeeByName(name);
-        List<EmployeeDto> employeeDtoList=new ArrayList<>();
-        for(Employee employee:employeeList)
-        {
-            EmployeeDto employeeDto=modelMapper.map(employee,EmployeeDto.class);
-            employeeDtoList.add(employeeDto);
-        }
+        List<EmployeeDto> employeeDtoList=serviceManager.getEmployeeByName(name);
         return employeeDtoList;
     }
 }

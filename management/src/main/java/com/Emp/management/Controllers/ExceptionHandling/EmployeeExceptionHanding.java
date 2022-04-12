@@ -34,9 +34,18 @@ public class EmployeeExceptionHanding {
     }
 
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(EmployeeWrongDetailException.class)
+//    public EmployeeErrorDetails handleEmployeeWrongDetailException(EmployeeWrongDetailException exception)
+//    {
+//        EmployeeErrorDetails error=new EmployeeErrorDetails();
+//        error.setMessage(exception.getMessage());
+//        return error;
+//    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(EmployeeWrongDetailException.class)
-    public EmployeeErrorDetails handleWrongEmployeeDetailException(EmployeeWrongDetailException exception)
+    public EmployeeErrorDetails EmployeeWrongDetailExceptionBadRequest(EmployeeWrongDetailException exception)
     {
         EmployeeErrorDetails error=new EmployeeErrorDetails();
         error.setMessage(exception.getMessage());

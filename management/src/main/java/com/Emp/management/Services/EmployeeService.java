@@ -14,7 +14,7 @@ public interface EmployeeService {
 
      void removeEmployee(int id) throws EmployeeNotFoundException;
 
-     Employee updateEmployee(Employee employee,int id) throws EmployeeNotFoundException;
+     Employee updateEmployee(Employee employee,int id) throws EmployeeNotFoundException, EmployeeWrongDetailException;
 
      void addEmployee(Employee employee) throws EmployeeWrongDetailException;
 
